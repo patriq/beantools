@@ -1,0 +1,10 @@
+[project]
+name = "beantools"
+description = "My beancount tools"
+version = "1.0"
+authors = [
+    { name = "Patriq", email = "patriqdesigns@gmail.com" }
+]
+dependencies = [
+    "beancount",
+]
