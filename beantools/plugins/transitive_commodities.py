@@ -1,5 +1,4 @@
-"""A plugin that inserts an additional price directives to help converstion to the operating currencies.
-"""
+"""A plugin that inserts additional price directives to help projecting all commodities to the ledger's operating currencies."""
 from beancount.core import amount, data, prices
 
 __plugins__ = ["generate_transitive_commodities"]
