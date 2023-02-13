@@ -7,4 +7,9 @@ authors = [
 ]
 dependencies = [
     "beancount",
+    "click",
+    "yfinance"
 ]
+
+[project.scripts]
+pricer = "beantools.tools.pricer:main"
