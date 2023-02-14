@@ -1,11 +1,9 @@
 import datetime
-import math
-from typing import Any, Dict, List, Optional, NamedTuple, Tuple
 
 import click
 import yfinance
 from beancount import loader
-from beancount.core import amount, data, prices
+from beancount.core import data
 from beancount.scripts.format import align_beancount
 
 
@@ -23,8 +21,11 @@ class Price(object):
         self.date = date
         self.amount = amount
 
+    def to_beancount(self):
+        return "{} price {}\t{:.3f} {}".format(self.date, self.base, self.amount, self.quote)
+
     def __str__(self):
-        return to_beancount()
+        return self.to_beancount()
 
     __repr__ = __str__
 
@@ -33,9 +34,6 @@ class Price(object):
 
     def __hash__(self):
         return hash(self.base) + hash(self.quote) + hash(self.date)
-
-    def to_beancount(self):
-        return "{} price {}\t{:.3f} {}".format(self.date, self.base, self.amount, self.quote)
 
 
 def commodity_entry_to_price(entry: data.Commodity) -> Price:
