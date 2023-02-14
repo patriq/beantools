@@ -1,2 +1,0 @@
-"""Beancount plugins.
-"""

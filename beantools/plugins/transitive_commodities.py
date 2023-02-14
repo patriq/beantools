@@ -6,6 +6,7 @@ __plugins__ = ["generate_transitive_commodities"]
 
 metadata = data.new_metadata('<{}>'.format(__file__), 0)
 
+
 def generate_transitive_commodities(entries, options_map, config=None):
     # Grab operating commodities
     operating_currencies = options_map['operating_currency']
@@ -32,13 +33,12 @@ def generate_transitive_commodities(entries, options_map, config=None):
         if (base_currency, quote_currency) in original_price_map:
             continue
 
-
         if quote_currency not in operating_currencies:
             continue
 
         for (price_date, price_amount) in price_list:
             additional_price_entries.append(
-                data.Price(metadata, price_date, base_currency, 
-                    amount.Amount(round(price_amount, 2), quote_currency)))
+                data.Price(metadata, price_date, base_currency,
+                           amount.Amount(round(price_amount, 2), quote_currency)))
 
     return entries + additional_price_entries, []
