@@ -12,4 +12,4 @@ dependencies = [
 ]
 
 [project.scripts]
-yahoo-pricer = "beantools.tools.yahoo_pricer:main"
+yahoo-pricer = "patriqbeantools.tools.yahoo_pricer:main"
