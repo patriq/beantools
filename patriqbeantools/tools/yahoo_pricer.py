@@ -22,7 +22,7 @@ class Price(object):
         self.amount = amount
 
     def to_beancount(self):
-        return "{} price {}\t{:.3f} {}".format(self.date, self.base, self.amount, self.quote)
+        return "{} price {}\t{:.3f} {}".format(self.date.strftime('%Y-%m-%d'), self.base, self.amount, self.quote)
 
     def __str__(self):
         return self.to_beancount()
@@ -88,7 +88,10 @@ def main(filename, dry_run):
     # Fetch all new prices
     tickers = yfinance.Tickers(" ".join(map(lambda price: price.ticker, new_prices)))
     for price in new_prices:
-        price.amount = tickers.tickers[price.ticker].fast_info.last_price
+        fast_info = tickers.tickers[price.ticker].fast_info
+        # for date, price_data in fast_info._get_1y_prices()["Close"].loc['2025-02-19':'2025-04-03'].items():
+        #     print(Price(price.base, price.quote, price.ticker, date, price_data).to_beancount())
+        price.amount = fast_info.last_price
 
     # Deduplicate existing prices and sort them by date
     all_prices = sorted(list(existing_prices.difference(new_prices)) + list(new_prices), key=lambda x: (x.date, x.base))
@@ -111,3 +114,7 @@ def main(filename, dry_run):
         print(new_ledger_contents)
     else:
         write_file(filename, new_ledger_contents)
+
+
+if __name__ == '__main__':
+    main()
